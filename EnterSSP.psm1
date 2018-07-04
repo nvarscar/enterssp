@@ -1,8 +1,30 @@
 Function Enter-SSP {
+    <#
+	.SYNOPSIS
+		Connect to remote computer using Credssp protocol with custom credentials
+	
+	.DESCRIPTION
+		Enables both local and remote machine to participate in a Credssp session and establishes a PSRemote session using Credssp protocol.
+	
+    .PARAMETER ComputerName
+        Remote computer name
+    
+    .PARAMETER Credential
+        PSCredential object used for authentication
+    .EXAMPLE
+		# Connect to remote computer MyRemoteComputer and ask for credentials
+        Enter-SSP MyRemoteComputer
+    .EXAMPLE   
+        # Connect to remote computer PC2 with custom credentials
+        $cred = Get-Credential
+        Enter-SSP -ComputerName PC2 -Credential $cred
+#>
 
     Param (
-        $ComputerName = 'WPG1PSDS26'
-        , $Credential
+        [Parameter(Mandatory = $true,
+            Position = 1)]
+        [string]$ComputerName,
+        [pscredential]$Credential
     )
 
     # Get the ID and security principal of the current user account
