@@ -53,9 +53,8 @@ Function Enter-SSP {
 
     If (!$Credential) {
         $Credential = Get-Credential -Credential "$($env:USERDOMAIN)\$($env:USERNAME)"
+        If (!$Credential) { Return }
     }
-
-    If (!$Credential) { Exit }
         
     Invoke-Command -Computer $ComputerName { 
         # Enable SSP on the remote machine
